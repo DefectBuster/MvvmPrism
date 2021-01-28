@@ -1,5 +1,7 @@
 using Prism;
 using Prism.Ioc;
+using QuotesApp.Interfaces;
+using QuotesApp.Services;
 using QuotesApp.ViewModels;
 using QuotesApp.Views;
 using Xamarin.Essentials.Implementation;
@@ -20,7 +22,7 @@ namespace QuotesApp
             InitializeComponent();
 
             //await NavigationService.NavigateAsync("NavigationPage/WelcomePage");
-            await NavigationService.NavigateAsync("WelcomePage");
+            await NavigationService.NavigateAsync("NavigationPage/QuotesPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -28,8 +30,9 @@ namespace QuotesApp
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<WelcomePage, WelcomePageViewModel>();
-            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+            containerRegistry.RegisterForNavigation<QuotesPage, QuotesPageViewModel>();
+            containerRegistry.RegisterSingleton<IQuote, QuotesApi>();
+            containerRegistry.RegisterForNavigation<QuotesDetail, QuotesDetailViewModel>();
         }
     }
 }
